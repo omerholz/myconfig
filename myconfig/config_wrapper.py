@@ -13,9 +13,12 @@ class SectionWrapper(SectionProxy):
 
 class ConfigWrapper(SafeConfigParser):
     def __getattr__(self, name):
-        return SectionWrapper.wrap_section(self[name])
+        try:
+            res = self[name]
+        except KeyError:
+            res = self['DEFAULT'][name]
+        return SectionWrapper.wrap_section(res)
 
     def optionxform(self, optionstr):
         return optionstr
 
-CONFIG = ConfigWrapper(os.environ)
