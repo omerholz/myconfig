@@ -13,5 +13,4 @@ setup(
     tests_require=[
         'sure==1.4.0','pytest==3.0.5'
     ]
-
 )
